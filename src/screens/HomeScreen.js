@@ -22,6 +22,7 @@ const HomeScreen = ({ match, history }) => {
 
   useEffect(() => {
     dispatch(listPlacements())
+
     dispatch(listPosts())
   }, [dispatch, history, success])
 
@@ -39,28 +40,32 @@ const HomeScreen = ({ match, history }) => {
     <>
       <h1>Current Placements</h1>
       <>
-        <Row>
-          {placements.map((placement) => (
-            <Col
-              key={
-                (placement.post.id, placement.packageName, placement.position)
-              }
-              sm={12}
-              md={6}
-              lg={4}
-              xl={3}
-            >
-              <Button
-                variant='danger'
-                className='btn-sm'
-                onClick={() => deleteHandler(placement)}
+        {placements.length == 0 ? (
+          <h6>No Current Placements </h6>
+        ) : (
+          <Row>
+            {placements.map((placement) => (
+              <Col
+                key={
+                  (placement.post.id, placement.packageName, placement.position)
+                }
+                sm={12}
+                md={6}
+                lg={4}
+                xl={3}
               >
-                <i className='fas fa-trash'></i>
-              </Button>
-              <Placement placement={placement} />
-            </Col>
-          ))}
-        </Row>
+                <Button
+                  variant='danger'
+                  className='btn-sm'
+                  onClick={() => deleteHandler(placement)}
+                >
+                  <i className='fas fa-trash'></i>
+                </Button>
+                <Placement placement={placement} />
+              </Col>
+            ))}
+          </Row>
+        )}
       </>
       <h2>Available Posts</h2>
       <>
