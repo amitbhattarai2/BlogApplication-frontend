@@ -89,6 +89,19 @@ export const placementUpdateReducer = (state = { placement: {} }, action) => {
   }
 }
 
+export const placementDeleteReducer = (state = {}, action) => {
+  switch (action.type) {
+    case PLACEMENT_DELETE_REQUEST:
+      return { loading: true }
+    case PLACEMENT_DELETE_SUCCESS:
+      return { loading: false, success: true }
+    case PLACEMENT_DELETE_FAIL:
+      return { loading: false, error: action.payload }
+    default:
+      return state
+  }
+}
+
 // export const vendorProductListReducer = (state = { products: [] }, action) => {
 //   switch (action.type) {
 //     case VENDOR_PRODUCT_LIST_REQUEST:

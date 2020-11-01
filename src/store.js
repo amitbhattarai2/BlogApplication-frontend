@@ -4,6 +4,7 @@ import { composeWithDevTools } from 'redux-devtools-extension'
 import { postDetailsReducer, postListReducer } from './reducers/postReducer'
 import {
   placementCreateReducer,
+  placementDeleteReducer,
   placementDetailsReducer,
   placementListReducer,
   placementUpdateReducer,
@@ -14,6 +15,7 @@ const reducer = combineReducers({
   placementDetails: placementDetailsReducer,
   placementCreate: placementCreateReducer,
   placementUpdate: placementUpdateReducer,
+  placementDelete: placementDeleteReducer,
   postList: postListReducer,
   postDetails: postDetailsReducer,
 })

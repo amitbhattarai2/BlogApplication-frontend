@@ -5,10 +5,10 @@ import { Row, CardColumns, Button, Col, Badge } from 'react-bootstrap'
 import Placement from '../components/Placement'
 import Post from '../components/Post'
 
-import { listPlacements } from '../actions/placementActions'
+import { deletePlacement, listPlacements } from '../actions/placementActions'
 import { listPosts } from '../actions/postActions'
 
-const HomeScreen = ({ match }) => {
+const HomeScreen = ({ match, history }) => {
   const dispatch = useDispatch()
 
   const placementList = useSelector((state) => state.placementList)
@@ -17,10 +17,23 @@ const HomeScreen = ({ match }) => {
   const postList = useSelector((state) => state.postList)
   const { posts } = postList
 
+  const placementDelete = useSelector((state) => state.placementDelete)
+  const { success } = placementDelete
+
   useEffect(() => {
     dispatch(listPlacements())
     dispatch(listPosts())
-  }, [dispatch])
+  }, [dispatch, history, success])
+
+  const deleteHandler = (placement) => {
+    dispatch(
+      deletePlacement(
+        placement.post.id,
+        placement.packageName,
+        placement.position
+      )
+    )
+  }
 
   return (
     <>
@@ -37,6 +50,13 @@ const HomeScreen = ({ match }) => {
               lg={4}
               xl={3}
             >
+              <Button
+                variant='danger'
+                className='btn-sm'
+                onClick={() => deleteHandler(placement)}
+              >
+                <i className='fas fa-trash'></i>
+              </Button>
               <Placement placement={placement} />
             </Col>
           ))}
@@ -47,13 +67,6 @@ const HomeScreen = ({ match }) => {
         <Row>
           {posts.map((post) => (
             <Col key={post.id} sm={12} md={6} lg={4} xl={3}>
-              <Link to={`/posts/${post.id}/create`}>
-                <Col className='text-right'>
-                  <Button className='my-3'>
-                    <i className='fas fa-plus'></i> Create Placement
-                  </Button>
-                </Col>
-              </Link>
               <Post post={post} />
             </Col>
           ))}

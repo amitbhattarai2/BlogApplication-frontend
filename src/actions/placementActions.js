@@ -131,6 +131,36 @@ export const updatePlacement = (id, packageName, position, active) => async (
   }
 }
 
+export const deletePlacement = (id, packageName, position) => async (
+  dispatch,
+  getState
+) => {
+  try {
+    dispatch({
+      type: PLACEMENT_DELETE_REQUEST,
+    })
+
+    const placementDTO = {
+      id: 1,
+      packageName: 'abc',
+      position: 2,
+    }
+
+    axios.delete(`/api/placements/${id}/${packageName}/${position}`)
+
+    dispatch({ type: PLACEMENT_DELETE_SUCCESS })
+  } catch (error) {
+    const message =
+      error.response && error.response.data.message
+        ? error.response.data.message
+        : error.message
+    dispatch({
+      type: PLACEMENT_DETAILS_FAIL,
+      payload: error.response,
+    })
+  }
+}
+
 // export const listVendorProducts = (id, pageNumber = '') => async (dispatch) => {
 //   try {
 //     dispatch({ type: VENDOR_PRODUCT_LIST_REQUEST })

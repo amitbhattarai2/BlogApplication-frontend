@@ -1,6 +1,8 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Card, Badge } from 'react-bootstrap'
+import { useDispatch, useSelector } from 'react-redux'
+import { Card, Badge, Button } from 'react-bootstrap'
+import { deletePlacement } from '../actions/placementActions'
 
 const Placement = ({ placement }) => {
   return (
