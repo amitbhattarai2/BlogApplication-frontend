@@ -5,7 +5,6 @@ import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../components/FormContainer'
 import { createPlacement } from '../actions/placementActions'
 import { listPostDetails } from '../actions/postActions'
-import { POST_DETAILS_FAIL } from '../constants/postConstants'
 import { PLACEMENT_CREATE_RESET } from '../constants/placementConstants'
 
 const PlacementCreateScreen = ({ match, history }) => {
@@ -62,7 +61,7 @@ const PlacementCreateScreen = ({ match, history }) => {
           </Form.Group>
 
           <Form.Group controlId='position'>
-            <Form.Label>Email Address</Form.Label>
+            <Form.Label>Position</Form.Label>
             <Form.Control
               type='number'
               placeholder='Enter position'

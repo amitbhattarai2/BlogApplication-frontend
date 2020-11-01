@@ -16,6 +16,7 @@ import {
   PLACEMENT_UPDATE_SUCCESS,
   PLACEMENT_UPDATE_FAIL,
   PLACEMENT_UPDATE_RESET,
+  PLACEMENT_DELETE_RESET,
 } from '../constants/placementConstants'
 
 export const placementListReducer = (state = { placements: [] }, action) => {
@@ -90,6 +91,8 @@ export const placementDeleteReducer = (state = {}, action) => {
       return { loading: false, success: true }
     case PLACEMENT_DELETE_FAIL:
       return { loading: false, error: action.payload }
+    case PLACEMENT_DELETE_RESET:
+      return {}
     default:
       return state
   }

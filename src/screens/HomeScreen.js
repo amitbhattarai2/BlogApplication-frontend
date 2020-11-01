@@ -6,6 +6,7 @@ import Post from '../components/Post'
 
 import { deletePlacement, listPlacements } from '../actions/placementActions'
 import { listPosts } from '../actions/postActions'
+import { PLACEMENT_DELETE_RESET } from '../constants/placementConstants'
 
 const HomeScreen = ({ match, history }) => {
   const dispatch = useDispatch()
@@ -22,10 +23,11 @@ const HomeScreen = ({ match, history }) => {
   useEffect(() => {
     if (success) {
       dispatch(listPlacements())
+      dispatch({ type: PLACEMENT_DELETE_RESET })
     }
     dispatch(listPlacements())
     dispatch(listPosts())
-  }, [dispatch, history, success])
+  }, [dispatch, history, match, success])
 
   const deleteHandler = (placement) => {
     dispatch(
