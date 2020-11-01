@@ -20,14 +20,14 @@ const PlacementEditScreen = ({ match, history }) => {
   const packageName = match.params.packageName
   const position = match.params.position
 
+  const placementDetails = useSelector((state) => state.placementDetails)
+  const { loading, error, placement } = placementDetails
+
   const [packageNameFromState, setPackageName] = useState('')
   const [positionFromState, setPosition] = useState('')
   const [activeFromState, setActive] = useState(true)
 
   const dispatch = useDispatch()
-
-  const placementDetails = useSelector((state) => state.placementDetails)
-  const { loading, error, placement } = placementDetails
 
   const placementUpdate = useSelector((state) => state.placementUpdate)
   const {
@@ -41,17 +41,29 @@ const PlacementEditScreen = ({ match, history }) => {
       dispatch({ type: PLACEMENT_UPDATE_RESET })
       history.push(`/`)
     } else {
-      if (!placement.post || placement.post.id != id) {
+      if (
+        !placement.post ||
+        placement.packageName != packageName ||
+        placement.position != position
+      ) {
         console.log('here')
         dispatch(listPlacementDetails(id, packageName, position))
       } else {
-        console.log('here')
-        setPackageName(packageName)
-        setPosition(position)
+        setPackageName(placement.packageName)
+        setPosition(placement.position)
         setActive(placement.active)
       }
     }
-  }, [dispatch, history, match, placement, id, successUpdate])
+  }, [
+    dispatch,
+    history,
+    placement,
+    id,
+    packageName,
+    position,
+    placement.active,
+    successUpdate,
+  ])
 
   const submitHandler = (e) => {
     e.preventDefault()
