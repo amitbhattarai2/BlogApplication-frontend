@@ -15,14 +15,7 @@ import {
   PLACEMENT_UPDATE_REQUEST,
   PLACEMENT_UPDATE_SUCCESS,
   PLACEMENT_UPDATE_FAIL,
-  PLACEMENT_CREATE_REVIEW_REQUEST,
-  PLACEMENT_CREATE_REVIEW_SUCCESS,
-  PLACEMENT_CREATE_REVIEW_FAIL,
-  PLACEMENT_TOP_REQUEST,
-  PLACEMENT_TOP_SUCCESS,
-  PLACEMENT_TOP_FAIL,
 } from '../constants/placementConstants'
-import { POST_DETAILS_REQUEST } from '../constants/postConstants'
 
 export const listPlacements = () => async (dispatch) => {
   try {
@@ -49,7 +42,7 @@ export const listPlacementDetails = (id, packageName, position) => async (
   dispatch
 ) => {
   try {
-    dispatch({ type: POST_DETAILS_REQUEST })
+    dispatch({ type: PLACEMENT_DETAILS_REQUEST })
 
     const { data } = await axios.get(
       `/api/placements/post/${id}/package/${packageName}/position/${position}`
@@ -68,8 +61,7 @@ export const listPlacementDetails = (id, packageName, position) => async (
 }
 
 export const createPlacement = (id, packageName, position, active) => async (
-  dispatch,
-  getState
+  dispatch
 ) => {
   try {
     dispatch({
@@ -155,7 +147,7 @@ export const deletePlacement = (id, packageName, position) => async (
         ? error.response.data.message
         : error.message
     dispatch({
-      type: PLACEMENT_DETAILS_FAIL,
+      type: PLACEMENT_DELETE_FAIL,
       payload: error.response,
     })
   }

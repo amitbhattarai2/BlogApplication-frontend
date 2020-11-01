@@ -18,14 +18,10 @@ const PlacementCreateScreen = ({ match, history }) => {
   const dispatch = useDispatch()
 
   const postDetails = useSelector((state) => state.postDetails)
-  const { loading, error, post } = postDetails
+  const { post } = postDetails
 
   const placementCreate = useSelector((state) => state.placementCreate)
-  const {
-    loading: loadingCreate,
-    error: errorCreate,
-    success: successCreate,
-  } = placementCreate
+  const { error: errorCreate, success: successCreate } = placementCreate
 
   useEffect(() => {
     dispatch({ type: PLACEMENT_CREATE_RESET })

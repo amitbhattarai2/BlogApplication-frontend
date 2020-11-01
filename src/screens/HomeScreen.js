@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react'
-import { Link } from 'react-router-dom'
 import { useDispatch, useSelector } from 'react-redux'
-import { Row, CardColumns, Button, Col, Badge } from 'react-bootstrap'
+import { Row, Button, Col } from 'react-bootstrap'
 import Placement from '../components/Placement'
 import Post from '../components/Post'
 
@@ -21,8 +20,10 @@ const HomeScreen = ({ match, history }) => {
   const { success } = placementDelete
 
   useEffect(() => {
+    if (success) {
+      dispatch(listPlacements())
+    }
     dispatch(listPlacements())
-
     dispatch(listPosts())
   }, [dispatch, history, success])
 

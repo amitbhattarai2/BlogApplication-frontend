@@ -1,19 +1,14 @@
 import React, { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { Form, Button, ButtonGroup, ToggleButton, Badge } from 'react-bootstrap'
+import { Form, Button, ButtonGroup, ToggleButton } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import FormContainer from '../components/FormContainer'
 import {
-  createPlacement,
   listPlacementDetails,
   updatePlacement,
 } from '../actions/placementActions'
-import { listPostDetails } from '../actions/postActions'
-import { POST_DETAILS_FAIL } from '../constants/postConstants'
-import {
-  PLACEMENT_CREATE_RESET,
-  PLACEMENT_UPDATE_RESET,
-} from '../constants/placementConstants'
+
+import { PLACEMENT_UPDATE_RESET } from '../constants/placementConstants'
 
 const PlacementEditScreen = ({ match, history }) => {
   const id = match.params.id
@@ -21,7 +16,7 @@ const PlacementEditScreen = ({ match, history }) => {
   const position = match.params.position
 
   const placementDetails = useSelector((state) => state.placementDetails)
-  const { loading, error, placement } = placementDetails
+  const { placement } = placementDetails
 
   const [packageNameFromState, setPackageName] = useState('')
   const [positionFromState, setPosition] = useState('')
@@ -30,11 +25,7 @@ const PlacementEditScreen = ({ match, history }) => {
   const dispatch = useDispatch()
 
   const placementUpdate = useSelector((state) => state.placementUpdate)
-  const {
-    loading: loadingUpdate,
-    error: errorUpdate,
-    success: successUpdate,
-  } = placementUpdate
+  const { error: errorUpdate, success: successUpdate } = placementUpdate
 
   useEffect(() => {
     if (successUpdate) {
